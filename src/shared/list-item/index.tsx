@@ -12,7 +12,7 @@ export default function ListItem({
   thumbnailAlt,
 }: Props) {
   return (
-    <li className="w-full flex flex-col p-4 border border-solid border-green-500 rounded cursor-pointer hover:bg-green-300 hover:dark:bg-green-600">
+    <li className="w-1/3 sm:w-1/4 flex flex-col p-4 border border-solid border-green-500 rounded cursor-pointer hover:bg-green-300 hover:dark:bg-green-600 gap-2">
       <img
         className="w-full aspect-square object-cover"
         src={thumbnailUrl}
