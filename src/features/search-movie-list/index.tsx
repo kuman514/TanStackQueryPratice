@@ -28,7 +28,8 @@ export default function SearchMovieList({ query, onClickListItem }: Props) {
       return response.data;
     },
     initialPageParam: 1,
-    getNextPageParam: (lastPage) => lastPage.page + 1,
+    getNextPageParam: (lastPage) =>
+      lastPage.page < lastPage.total_pages ? lastPage.page + 1 : null,
     enabled: isEnabled,
   });
 
@@ -49,17 +50,12 @@ export default function SearchMovieList({ query, onClickListItem }: Props) {
     .map((page) => page.results)
     .reduce((prev, pageResult) => prev.concat(pageResult), []);
 
-  const isFullPage =
-    searchMovieListQueryStatus.data &&
-    searchMovieListQueryStatus.data?.pages.length >=
-      searchMovieListQueryStatus.data?.pages[0].total_pages;
-
   const loadingStatus = (() => {
     if (searchMovieListQueryStatus.isFetching) {
       return 'Loading';
     }
 
-    if (isFullPage) {
+    if (!searchMovieListQueryStatus.hasNextPage) {
       return 'All loaded';
     }
 
@@ -95,7 +91,10 @@ export default function SearchMovieList({ query, onClickListItem }: Props) {
       <button
         type="button"
         className="px-6 py-4 border border-solid border-green-500 rounded-full cursor-pointer"
-        disabled={searchMovieListQueryStatus.isFetching || isFullPage}
+        disabled={
+          searchMovieListQueryStatus.isFetching ||
+          !searchMovieListQueryStatus.hasNextPage
+        }
         onClick={() => {
           searchMovieListQueryStatus.fetchNextPage();
         }}
