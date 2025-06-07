@@ -1,64 +1,18 @@
 import { useState } from 'react';
 
-import ListItem from '^/shared/list-item';
 import TextInput from '^/shared/text-input';
+import SearchMovieList from './features/search-movie-list';
 
 function App() {
-  const [userName, setUserName] = useState<string>('');
+  const [query, setQuery] = useState<string>('');
+  // const [selectedArticleId, setSelectedArticleId] = useState<number | null>(
+  //   null
+  // );
 
   return (
     <main className="py-40 w-screen min-h-dvh flex flex-col items-center gap-12">
-      <TextInput textValue={userName} onChange={setUserName} />
-      <ul className="w-full max-w-5xl flex flex-row justify-center flex-wrap gap-4">
-        <ListItem
-          mainTitle="Paranoia 7th Anniversary"
-          description="파라노이아 7주년 애기코이시 둥기둥기"
-          thumbnailUrl="https://pbs.twimg.com/profile_banners/2580505316/1587998528"
-          thumbnailAlt="코메이지 코이시"
-        />
-        <ListItem
-          mainTitle="Paranoia 7th Anniversary"
-          description="파라노이아 7주년 애기코이시 둥기둥기"
-          thumbnailUrl="https://pbs.twimg.com/profile_banners/2580505316/1587998528"
-          thumbnailAlt="코메이지 코이시"
-        />
-        <ListItem
-          mainTitle="Paranoia 7th Anniversary"
-          description="파라노이아 7주년 애기코이시 둥기둥기"
-          thumbnailUrl="https://pbs.twimg.com/profile_banners/2580505316/1587998528"
-          thumbnailAlt="코메이지 코이시"
-        />
-        <ListItem
-          mainTitle="Paranoia 7th Anniversary"
-          description="파라노이아 7주년 애기코이시 둥기둥기"
-          thumbnailUrl="https://pbs.twimg.com/profile_banners/2580505316/1587998528"
-          thumbnailAlt="코메이지 코이시"
-        />
-        <ListItem
-          mainTitle="Paranoia 7th Anniversary"
-          description="파라노이아 7주년 애기코이시 둥기둥기"
-          thumbnailUrl="https://pbs.twimg.com/profile_banners/2580505316/1587998528"
-          thumbnailAlt="코메이지 코이시"
-        />
-        <ListItem
-          mainTitle="Paranoia 7th Anniversary"
-          description="파라노이아 7주년 애기코이시 둥기둥기"
-          thumbnailUrl="https://pbs.twimg.com/profile_banners/2580505316/1587998528"
-          thumbnailAlt="코메이지 코이시"
-        />
-        <ListItem
-          mainTitle="Paranoia 7th Anniversary"
-          description="파라노이아 7주년 애기코이시 둥기둥기"
-          thumbnailUrl="https://pbs.twimg.com/profile_banners/2580505316/1587998528"
-          thumbnailAlt="코메이지 코이시"
-        />
-        <ListItem
-          mainTitle="Paranoia 7th Anniversary"
-          description="파라노이아 7주년 애기코이시 둥기둥기"
-          thumbnailUrl="https://pbs.twimg.com/profile_banners/2580505316/1587998528"
-          thumbnailAlt="코메이지 코이시"
-        />
-      </ul>
+      <TextInput textValue={query} onChange={setQuery} />
+      <SearchMovieList query={query} />
     </main>
   );
 }
