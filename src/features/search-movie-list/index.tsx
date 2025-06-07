@@ -2,14 +2,16 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 
+import type { MovieArticle } from '^/entities/movie-article/types';
 import type { GetMovieListResponseBody } from '^/entities/movie-list/types';
 import ListItem from '^/shared/list-item';
 
 interface Props {
   query: string;
+  onClickListItem: (movieId: MovieArticle['id']) => void;
 }
 
-export default function SearchMovieList({ query }: Props) {
+export default function SearchMovieList({ query, onClickListItem }: Props) {
   const [isEnabled, setIsEnabled] = useState<boolean>(false);
   const searchMovieListQueryStatus = useInfiniteQuery({
     queryKey: ['search-result', query],
@@ -68,6 +70,7 @@ export default function SearchMovieList({ query }: Props) {
     ? listItem.map((item) => (
         <ListItem
           key={item.id}
+          id={item.id}
           mainTitle={item.title}
           description={item.overview}
           thumbnailUrl={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
@@ -78,7 +81,15 @@ export default function SearchMovieList({ query }: Props) {
 
   return (
     <>
-      <ul className="w-full max-w-5xl flex flex-row justify-center flex-wrap gap-4">
+      <ul
+        className="w-full max-w-5xl flex flex-row justify-center flex-wrap gap-4"
+        onClick={(event) => {
+          if (!(event.target instanceof HTMLElement)) {
+            return;
+          }
+          onClickListItem(parseInt(event.target.id, 10));
+        }}
+      >
         {renderListItem}
       </ul>
       <button
